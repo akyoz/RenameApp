@@ -79,7 +79,7 @@ class TreeviewToolTip:
         if self.tip_window:
             self.tip_window.destroy()
             self.tip_window = None
-        
+
         self.last_row = None
         self.last_col = None
 
@@ -236,7 +236,7 @@ class RenamerApp:
         self.export_csv_button.config(state=tk.DISABLED)
         # ソート状態とヘッダーの矢印をリセット
         if hasattr(self, 'treeview_headers'):
-             for c, text in self.treeview_headers.items():
+            for c, text in self.treeview_headers.items():
                 self.tree.heading(c, text=text)
         self.treeview_sort_column = None
         self.treeview_sort_reverse = False
