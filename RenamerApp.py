@@ -66,8 +66,8 @@ class TreeviewToolTip:
         tw.wm_geometry(f"+{event.x_root + 20}+{event.y_root + 10}")
 
         label = tk.Label(tw, text=cell_text, justify=tk.LEFT,
-                         background="#ffffe0", relief=tk.SOLID, borderwidth=1,
-                         font=("tahoma", "8", "normal"))
+                        background="#ffffe0", relief=tk.SOLID, borderwidth=1,
+                        font=("tahoma", 8, "normal"))
         label.pack(ipadx=1)
 
     def hide_tip(self, event=None):
@@ -601,6 +601,7 @@ class RenamerApp:
             "\U00002702-\U000027B0"  # Dingbats
             "\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
             "\U0001FA00-\U0001FA6F"  # Chess Symbols
+            "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
             "\U00002B00-\U00002BFF"  # Miscellaneous Symbols and Arrows
             "\U000020D0-\U000020FF"  # Combining Diacritical Marks for Symbols
             "\U0000FE00-\U0000FE0F"  # Variation Selectors
@@ -713,7 +714,8 @@ class RenamerApp:
         l = [(self.tree.set(k, col), k) for k in self.tree.get_children('')]
 
         # データをソート（文字列として、大文字小文字を区別せずにソート）
-        l.sort(key=lambda t: t[0].lower(), reverse=reverse)
+        # t[0]がNoneの場合に備えて、空文字列を返すように修正
+        l.sort(key=lambda t: (t[0].lower() if t[0] is not None else ''), reverse=reverse) # pyright: ignore[reportAttributeAccessIssue]
 
         # Treeview内のアイテムを並べ替え
         for index, (val, k) in enumerate(l):
